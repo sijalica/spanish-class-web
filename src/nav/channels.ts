@@ -55,6 +55,12 @@ export const professorChannels: ChannelGroup[] = [
         description: 'Schedule a class session',
       },
       {
+        id: 'homework',
+        label: 'homework',
+        path: '/professor/homework',
+        description: 'Assign homework and grade submissions',
+      },
+      {
         id: 'resources',
         label: 'resources',
         path: '/professor/resources',

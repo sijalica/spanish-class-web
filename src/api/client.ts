@@ -5,6 +5,7 @@ import type {
   ConnectedProfessor,
   ConnectedStudent,
   HomeworkDto,
+  HomeworkSubmissionDto,
   LoginRequest,
   MyPaymentTrackingDto,
   NoteDto,
@@ -130,6 +131,44 @@ export function addStudentNote(
 
 export function listPaymentTracking() {
   return apiFetch<StudentPaymentTrackingDto[]>('/api/professor/payment-tracking')
+}
+
+export function listHomeworkForClass(classId: number) {
+  return apiFetch<HomeworkDto[]>(`/api/professor/classes/${classId}/homework`)
+}
+
+export function createHomework(
+  classId: number,
+  body: {
+    title: string
+    description?: string
+    dueDate: string
+    maxPoints: number
+  },
+) {
+  return apiFetch<HomeworkDto>(`/api/professor/classes/${classId}/homework`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
+export function listHomeworkSubmissions(homeworkId: number) {
+  return apiFetch<HomeworkSubmissionDto[]>(
+    `/api/professor/homework/${homeworkId}/submissions`,
+  )
+}
+
+export function gradeSubmission(
+  submissionId: number,
+  body: { grade: number; feedback?: string },
+) {
+  return apiFetch<HomeworkSubmissionDto>(
+    `/api/professor/submissions/${submissionId}/grade`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    },
+  )
 }
 
 // ─── Student ─────────────────────────────────────────────────

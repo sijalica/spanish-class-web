@@ -10,6 +10,7 @@ import { ProfessorHomeChannel } from '@/pages/professor/HomeChannel'
 import { RosterChannel } from '@/pages/professor/RosterChannel'
 import { StudentProfileChannel } from '@/pages/professor/StudentProfileChannel'
 import { ClassesChannel } from '@/pages/professor/ClassesChannel'
+import { ProfessorHomeworkChannel } from '@/pages/professor/HomeworkChannel'
 import { ResourcesChannel } from '@/pages/professor/ResourcesChannel'
 import { NotesChannel } from '@/pages/professor/NotesChannel'
 import { PaymentsChannel } from '@/pages/professor/PaymentsChannel'
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="roster" element={<RosterChannel />} />
           <Route path="roster/:studentId" element={<StudentProfileChannel />} />
           <Route path="classes" element={<ClassesChannel />} />
+          <Route path="homework" element={<ProfessorHomeworkChannel />} />
           <Route path="resources" element={<ResourcesChannel />} />
           <Route path="notes" element={<NotesChannel />} />
           <Route path="payments" element={<PaymentsChannel />} />

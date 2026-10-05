@@ -86,6 +86,25 @@ export interface HomeworkDto {
   title: string
   description?: string
   maxPoints: number
+  dueDate?: string
+  classSessionId?: number
+  classSessionTitle?: string
+}
+
+export interface HomeworkSubmissionDto {
+  id: number
+  homeworkId: number
+  studentId: number
+  studentEmail: string
+  studentFullName: string
+  content?: string
+  status: string
+  grade?: number
+  professorFeedback?: string
+  submittedAt?: string
+  gradedAt?: string
+  hasAttachment: boolean
+  attachmentOriginalFilename?: string
 }
 
 export interface StudentPaymentTrackingDto {
