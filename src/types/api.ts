@@ -124,5 +124,25 @@ export interface ClassSession {
   scheduledAt: string
   durationMinutes: number
   status?: string
+  professorId?: number
+  professorFullName?: string
+  resourceSectionId?: number
+  resourceSectionName?: string
   resourceSection?: { id: number; name: string }
+  students?: Array<{
+    studentId: number
+    fullName: string
+    email: string
+  }>
+}
+
+export interface StudentDetailDto {
+  id: number
+  email: string
+  fullName: string
+  level: SpanishLevel
+  totalPoints: number
+  enrolledClassCount: number
+  numberOfGradedHomework: number
+  averageScore: number
 }

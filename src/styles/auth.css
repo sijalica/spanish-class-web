@@ -46,7 +46,8 @@
   gap: 0.9rem;
   align-content: center;
   padding: clamp(1.5rem, 5vw, 3.5rem);
-  background: rgba(247, 250, 249, 0.82);
+  background: rgba(247, 250, 249, 0.96);
+  color: #102a2a;
   backdrop-filter: blur(10px);
   animation: rise 650ms ease both;
 }
@@ -55,6 +56,7 @@
   margin: 0 0 0.5rem;
   font-family: var(--font-display);
   font-size: 2rem;
+  color: #102a2a;
 }
 
 .auth-card label {
@@ -62,21 +64,30 @@
   gap: 0.35rem;
   font-weight: 600;
   font-size: 0.95rem;
+  color: #102a2a;
 }
 
 .auth-card input,
 .auth-card select,
 .auth-card button {
   border-radius: 12px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(16, 42, 42, 0.22);
   padding: 0.85rem 1rem;
+  color: #102a2a;
+  background: #ffffff;
+}
+
+.auth-card input::placeholder,
+.auth-card select::placeholder,
+.auth-card textarea::placeholder {
+  color: rgba(16, 42, 42, 0.45);
 }
 
 .auth-card button {
   margin-top: 0.4rem;
   border: none;
   background: linear-gradient(135deg, var(--sea), var(--sea-deep));
-  color: white;
+  color: #ffffff;
   font-weight: 700;
   transition: transform 160ms ease, filter 160ms ease;
 }

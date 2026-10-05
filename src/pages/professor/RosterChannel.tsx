@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import {
   connectStudentByEmail,
   disconnectStudent,
@@ -96,13 +97,21 @@ export function RosterChannel() {
                     {s.level ? ` · ${s.level}` : ''}
                   </span>
                 </div>
-                <button
-                  type="button"
-                  className="dc-btn danger"
-                  onClick={() => void onDisconnect(s.studentId)}
-                >
-                  Remove
-                </button>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <Link
+                    to={`/professor/roster/${s.studentId}`}
+                    className="dc-btn ghost"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    type="button"
+                    className="dc-btn danger"
+                    onClick={() => void onDisconnect(s.studentId)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             ))}
           </div>

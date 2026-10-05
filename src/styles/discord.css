@@ -385,6 +385,59 @@ textarea {
   font-weight: 700;
 }
 
+.dc-cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.dc-cal-head {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--dc-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dc-cal-cell {
+  min-height: 52px;
+  border: 1px solid var(--dc-border);
+  border-radius: 8px;
+  background: var(--dc-input);
+  color: var(--dc-text);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.dc-cal-cell.empty {
+  background: transparent;
+  border-color: transparent;
+}
+
+.dc-cal-cell.active {
+  border-color: var(--dc-accent);
+  background: var(--dc-active);
+}
+
+.dc-cal-cell em {
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--dc-accent-2);
+}
+
+a.dc-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (max-width: 900px) {
   .dc-root {
     grid-template-columns: 0 200px 1fr;

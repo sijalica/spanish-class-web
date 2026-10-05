@@ -11,6 +11,7 @@ import type {
   ProfessorResourcesDto,
   RegisterRequest,
   ResourceSectionDto,
+  StudentDetailDto,
   StudentPaymentTrackingDto,
   StudentProgressDto,
 } from '@/types/api'
@@ -55,6 +56,10 @@ export function disconnectStudent(studentId: number) {
   })
 }
 
+export function getStudentDetail(studentId: number) {
+  return apiFetch<StudentDetailDto>(`/api/professor/students/${studentId}`)
+}
+
 export function scheduleClass(body: {
   title: string
   description?: string
@@ -67,6 +72,16 @@ export function scheduleClass(body: {
     method: 'POST',
     body: JSON.stringify(body),
   })
+}
+
+export function listProfessorClasses(from?: string, to?: string) {
+  const params = new URLSearchParams()
+  if (from) params.set('from', from)
+  if (to) params.set('to', to)
+  const q = params.toString()
+  return apiFetch<ClassSession[]>(
+    `/api/professor/classes${q ? `?${q}` : ''}`,
+  )
 }
 
 export function listProfessorResources() {
@@ -123,6 +138,14 @@ export function listStudentResources() {
 
 export function listPendingHomework() {
   return apiFetch<HomeworkDto[]>('/api/student/homework')
+}
+
+export function listStudentClasses(from?: string, to?: string) {
+  const params = new URLSearchParams()
+  if (from) params.set('from', from)
+  if (to) params.set('to', to)
+  const q = params.toString()
+  return apiFetch<ClassSession[]>(`/api/student/classes${q ? `?${q}` : ''}`)
 }
 
 export function listMyPaymentTracking() {

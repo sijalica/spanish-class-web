@@ -92,6 +92,12 @@ export const studentChannels: ChannelGroup[] = [
         description: 'Professors you are connected to',
       },
       {
+        id: 'classes',
+        label: 'classes',
+        path: '/student/classes',
+        description: 'Your class calendar',
+      },
+      {
         id: 'homework',
         label: 'homework',
         path: '/student/homework',

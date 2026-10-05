@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react'
-import { listProfessorClasses, scheduleClass } from '@/api/client'
+import { useEffect, useMemo, useState } from 'react'
+import { listStudentClasses } from '@/api/client'
 import { ApiError } from '@/lib/api'
 import type { ClassSession } from '@/types/api'
 
@@ -16,29 +16,18 @@ function dayKey(iso: string) {
   return iso.slice(0, 10)
 }
 
-export function ClassesChannel() {
+export function StudentClassesChannel() {
   const now = new Date()
   const [year, setYear] = useState(now.getFullYear())
   const [month, setMonth] = useState(now.getMonth())
   const [classes, setClasses] = useState<ClassSession[]>([])
   const [selectedDay, setSelectedDay] = useState<string | null>(null)
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [scheduledAt, setScheduledAt] = useState('')
-  const [durationMinutes, setDurationMinutes] = useState(60)
-  const [sectionName, setSectionName] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [busy, setBusy] = useState(false)
-
-  async function refresh() {
-    const { from, to } = monthBounds(year, month)
-    setClasses(await listProfessorClasses(from, to))
-  }
 
   useEffect(() => {
     let cancelled = false
     const { from, to } = monthBounds(year, month)
-    listProfessorClasses(from, to)
+    listStudentClasses(from, to)
       .then((rows) => {
         if (!cancelled) setClasses(rows)
       })
@@ -69,33 +58,8 @@ export function ClassesChannel() {
     month: 'long',
     year: 'numeric',
   })
-
   const dayClasses =
     selectedDay != null ? (byDay.get(selectedDay) ?? []) : []
-
-  async function onSubmit(e: FormEvent) {
-    e.preventDefault()
-    setBusy(true)
-    setError(null)
-    try {
-      const iso = scheduledAt.length === 16 ? `${scheduledAt}:00` : scheduledAt
-      await scheduleClass({
-        title,
-        description: description || undefined,
-        scheduledAt: iso,
-        durationMinutes,
-        newResourceSectionName: sectionName.trim() || undefined,
-      })
-      setTitle('')
-      setDescription('')
-      setSectionName('')
-      await refresh()
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'Could not schedule class')
-    } finally {
-      setBusy(false)
-    }
-  }
 
   function shiftMonth(delta: number) {
     const d = new Date(year, month + delta, 1)
@@ -161,12 +125,7 @@ export function ClassesChannel() {
                     <span>
                       {c.scheduledAt.replace('T', ' ').slice(0, 16)} ·{' '}
                       {c.durationMinutes} min
-                      {c.resourceSectionName
-                        ? ` · ${c.resourceSectionName}`
-                        : ''}
-                      {(c.students?.length ?? 0) > 0
-                        ? ` · ${c.students!.length} student(s)`
-                        : ''}
+                      {c.professorFullName ? ` · ${c.professorFullName}` : ''}
                     </span>
                   </div>
                   <span className="dc-chip">{c.status ?? 'SCHEDULED'}</span>
@@ -175,55 +134,29 @@ export function ClassesChannel() {
             </div>
           )}
         </div>
-      ) : null}
-
-      <div className="dc-panel">
-        <h3>Schedule a class</h3>
-        <form className="dc-form" onSubmit={onSubmit}>
-          <label>
-            Title
-            <input required value={title} onChange={(e) => setTitle(e.target.value)} />
-          </label>
-          <label>
-            Description
-            <textarea
-              rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </label>
-          <label>
-            When
-            <input
-              type="datetime-local"
-              required
-              value={scheduledAt}
-              onChange={(e) => setScheduledAt(e.target.value)}
-            />
-          </label>
-          <label>
-            Duration (minutes)
-            <input
-              type="number"
-              min={15}
-              required
-              value={durationMinutes}
-              onChange={(e) => setDurationMinutes(Number(e.target.value))}
-            />
-          </label>
-          <label>
-            Resource section name (optional)
-            <input
-              value={sectionName}
-              onChange={(e) => setSectionName(e.target.value)}
-              placeholder="Subjunctive"
-            />
-          </label>
-          <button type="submit" disabled={busy}>
-            {busy ? 'Scheduling…' : 'Schedule'}
-          </button>
-        </form>
-      </div>
+      ) : (
+        <div className="dc-panel">
+          <h3>This month</h3>
+          {classes.length === 0 && !error ? (
+            <p className="dc-empty">No enrolled classes this month.</p>
+          ) : (
+            <div className="dc-stack">
+              {classes.map((c) => (
+                <div className="dc-row" key={c.id}>
+                  <div>
+                    <strong>{c.title}</strong>
+                    <span>
+                      {c.scheduledAt.replace('T', ' ').slice(0, 16)}
+                      {c.professorFullName ? ` · ${c.professorFullName}` : ''}
+                    </span>
+                  </div>
+                  <span className="dc-chip">{c.status ?? 'SCHEDULED'}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </>
   )
 }

@@ -6,6 +6,7 @@ import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
 import { ProfessorHomeChannel } from '@/pages/professor/HomeChannel'
 import { RosterChannel } from '@/pages/professor/RosterChannel'
+import { StudentProfileChannel } from '@/pages/professor/StudentProfileChannel'
 import { ClassesChannel } from '@/pages/professor/ClassesChannel'
 import { ResourcesChannel } from '@/pages/professor/ResourcesChannel'
 import { NotesChannel } from '@/pages/professor/NotesChannel'
@@ -14,6 +15,7 @@ import { StudentHomeChannel } from '@/pages/student/HomeChannel'
 import { ProfessorsChannel } from '@/pages/student/ProfessorsChannel'
 import { ProgressChannel } from '@/pages/student/ProgressChannel'
 import { HomeworkChannel } from '@/pages/student/HomeworkChannel'
+import { StudentClassesChannel } from '@/pages/student/StudentClassesChannel'
 import { StudentResourcesChannel } from '@/pages/student/StudentResourcesChannel'
 import { StudentNotesChannel } from '@/pages/student/StudentNotesChannel'
 import { StudentPaymentsChannel } from '@/pages/student/StudentPaymentsChannel'
@@ -42,6 +44,7 @@ export default function App() {
         <Route path="/professor" element={<DiscordLayout role="PROFESSOR" />}>
           <Route index element={<ProfessorHomeChannel />} />
           <Route path="roster" element={<RosterChannel />} />
+          <Route path="roster/:studentId" element={<StudentProfileChannel />} />
           <Route path="classes" element={<ClassesChannel />} />
           <Route path="resources" element={<ResourcesChannel />} />
           <Route path="notes" element={<NotesChannel />} />
@@ -54,6 +57,7 @@ export default function App() {
           <Route index element={<StudentHomeChannel />} />
           <Route path="professors" element={<ProfessorsChannel />} />
           <Route path="progress" element={<ProgressChannel />} />
+          <Route path="classes" element={<StudentClassesChannel />} />
           <Route path="homework" element={<HomeworkChannel />} />
           <Route path="resources" element={<StudentResourcesChannel />} />
           <Route path="notes" element={<StudentNotesChannel />} />
