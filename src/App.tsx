@@ -4,6 +4,8 @@ import { RequireAuth } from '@/auth/RequireAuth'
 import { DiscordLayout } from '@/components/DiscordLayout'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
+import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage'
+import { ResetPasswordPage } from '@/pages/ResetPasswordPage'
 import { ProfessorHomeChannel } from '@/pages/professor/HomeChannel'
 import { RosterChannel } from '@/pages/professor/RosterChannel'
 import { StudentProfileChannel } from '@/pages/professor/StudentProfileChannel'
@@ -39,6 +41,8 @@ export default function App() {
       <Route path="/" element={<HomeRedirect />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
 
       <Route element={<RequireAuth role="PROFESSOR" />}>
         <Route path="/professor" element={<DiscordLayout role="PROFESSOR" />}>
