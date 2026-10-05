@@ -1,0 +1,106 @@
+.app-shell {
+  min-height: 100vh;
+  padding: 1.25rem clamp(1rem, 4vw, 2.5rem) 2.5rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1.5rem;
+}
+
+.brand-mini {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--sea-deep);
+}
+
+.topbar h1 {
+  margin: 0.15rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(16, 42, 42, 0.7);
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.user-chip {
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 107, 107, 0.1);
+  font-size: 0.9rem;
+}
+
+.ghost {
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  font-weight: 600;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow);
+  animation: rise 500ms ease both;
+}
+
+.panel h2,
+.panel h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: rgba(15, 107, 107, 0.06);
+}
+
+.list span {
+  color: rgba(16, 42, 42, 0.65);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .list li {
+    flex-direction: column;
+  }
+}

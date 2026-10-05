@@ -1,0 +1,11 @@
+# Frontend-only compose (dev preview of prod nginx image).
+# On the Debian server, prefer the combined stack with the backend.
+services:
+  web:
+    build: .
+    container_name: spanish-class-web
+    ports:
+      - "80:80"
+    # Point nginx upstream at your API host on the LAN if not using Docker DNS "backend"
+    # extra_hosts:
+    #   - "backend:host-gateway"
