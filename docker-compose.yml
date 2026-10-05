@@ -1,11 +1,12 @@
-# Frontend-only compose (dev preview of prod nginx image).
-# On the Debian server, prefer the combined stack with the backend.
+# Production web image (nginx + SPA).
+# On Debian, if the Spring API runs on the host (port 8080), host-gateway
+# makes hostname "backend" resolve to the host so nginx can proxy /api.
 services:
   web:
     build: .
     container_name: spanish-class-web
+    restart: unless-stopped
     ports:
       - "80:80"
-    # Point nginx upstream at your API host on the LAN if not using Docker DNS "backend"
-    # extra_hosts:
-    #   - "backend:host-gateway"
+    extra_hosts:
+      - "backend:host-gateway"
